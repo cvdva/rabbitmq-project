@@ -10,9 +10,9 @@ class Message:
                 id = ids[name_index]
                 self.sourceID = id
             else:
-                last_id = ids[-1]
+                last_id = int(ids[-1])
                 self.sourceID = last_id + 1
-                "TODO: Write the new name and ID to the csv file"
+                self.write_to_file("sourcelog.csv", "{}, {}".format(name, self.sourceID))
         else:
             self.sourceID = sourceID
         self.format = format
@@ -48,11 +48,26 @@ class Message:
         :param file_name: The name of the file to be open
         :return: Raw list from the csv
         '''
-        list = []
+        names = []
+        ids = []
         with open(file_name, newline='') as f:
             reader = csv.reader(f)
             for row in reader:
-                list.append(row)
-        names = list[0]
-        ids = list[1]
+                name = row[0]
+                id = row[1]
+                names.append(name)
+                ids.append(id)
+        print(names, ids)
         return names, ids
+
+    def write_to_file(self, file_name, data):
+        with open(file_name, 'a') as f:
+            f.write("\n")
+            f.write(data)
+
+
+if __name__ == "__main__":
+    one = Message("Test1")
+    print(one.get_sourceID())
+    two = Message("Test3")
+    print(two.get_sourceID())
