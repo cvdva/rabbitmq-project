@@ -1,0 +1,11 @@
+{
+    "name": "server/client_name",
+    "sourceID": "number given by server", 
+    "format": "current format of data",
+    "destination": {
+        "private": true,
+        "intendedRecipient": "name of consumer"
+        },
+    "size": "Size of data",
+    "Type": "Request for data or offering data"
+}
