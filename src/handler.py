@@ -1,9 +1,15 @@
 import csv
 
 class Message:
-    def __init__(self, name='', sourceID=0, format=None, private=False, rec=None, size=0, Type=None):
+    def __init__(self, name='', sourceID=0, format=None, private=False, rec=None, size=0, Type=None,
+                 dataID=0):
         self.name = name
-        names, ids = self.open_file("sourcelog.csv")
+        full_list = self.open_file("sourcelog.csv")
+        names = []
+        ids = []
+        for row in full_list:
+            names.append(row[0])
+            ids.append(row[1])
         if sourceID == 0:
             if self.name in names:
                 name_index = names.index(name)
@@ -20,6 +26,21 @@ class Message:
         self.recipient = rec
         self.size = size
         self.type = Type
+        data_list = self.open_file("datalog.csv")
+        sids = []
+        dids = []
+        form = []
+        for row in data_list:
+            print(row)
+            sids.append(row[0])
+            dids.append(row[1])
+            form.append(row[2])
+        if dataID == 0:
+            self.dataID = int(dids[-1]) + 1
+        else:
+            self.dataID = dataID
+        self.write_to_file("datalog.csv", "{}, {}, {}".format(self.sourceID, self.dataID, self.format))
+
 
     def get_name(self):
         return self.name
@@ -42,23 +63,21 @@ class Message:
     def get_type(self):
         return self.type
 
+    def get_dataID(self):
+        return self.dataID
+
     def open_file(self, file_name):
         '''
         Opens the csv file under the name given
         :param file_name: The name of the file to be open
         :return: Raw list from the csv
         '''
-        names = []
-        ids = []
+        list = []
         with open(file_name, newline='') as f:
             reader = csv.reader(f)
             for row in reader:
-                name = row[0]
-                id = row[1]
-                names.append(name)
-                ids.append(id)
-        print(names, ids)
-        return names, ids
+                list.append(row)
+        return list
 
     def write_to_file(self, file_name, data):
         with open(file_name, 'a') as f:
@@ -67,7 +86,5 @@ class Message:
 
 
 if __name__ == "__main__":
-    one = Message("Test1")
-    print(one.get_sourceID())
-    two = Message("Test3")
-    print(two.get_sourceID())
+    one = Message("Test1", 100, "A", False, None, 0, None)
+    print(one.get_dataID())
