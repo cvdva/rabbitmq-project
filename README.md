@@ -7,3 +7,4 @@ Solving messaging issues one step at a time
 - new_task.py and receive.py are just there for messing around and trying things
 - handler.py is the start of the server handler which will recive messages from worker.py
 - sourcelog.csv is a list of source IDs used by the handler. 
+- datalog.csv is a list of data IDs so the system doesn't duplicate the same data
