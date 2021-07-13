@@ -9,3 +9,5 @@ Solving messaging issues one step at a time
 - sourcelog.csv is a list of source IDs used by the handler. 
 - datalog.csv is a list of data IDs so the system doesn't duplicate the same data
 - announce.py will send a message of choice to the announce queue
+- announce_queue.py listens on the announce queue
+- input_new_data.py asks for user input and sends json to the "hello" queue
