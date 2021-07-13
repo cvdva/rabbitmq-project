@@ -18,7 +18,7 @@ def main():
 
 
     channel.basic_qos(prefetch_count=1)
-    channel.basic_consume(queue='hello', on_message_callback=callback)
+    channel.basic_consume(queue='announce', on_message_callback=callback)
     channel.start_consuming()
 
 
