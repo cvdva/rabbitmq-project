@@ -1,7 +1,8 @@
 import csv
+from src import announce
 
 class Message:
-    def __init__(self, name='', sourceID=0, format=None, private=False, rec=None, size=0, Type=None,
+    def __init__(self, name='', sourceID=0, format=None, private=False, date=None, size=0, Type=None,
                  dataID=0):
         self.name = name
         full_list = self.open_file("sourcelog.csv")
@@ -23,7 +24,7 @@ class Message:
             self.sourceID = sourceID
         self.format = format
         self.private = private
-        self.recipient = rec
+        self.date = date
         self.size = size
         self.type = Type
         data_list = self.open_file("datalog.csv")
@@ -31,7 +32,6 @@ class Message:
         dids = []
         form = []
         for row in data_list:
-            print(row)
             sids.append(row[0])
             dids.append(row[1])
             form.append(row[2])
@@ -54,8 +54,8 @@ class Message:
     def get_private(self):
         return self.private
 
-    def get_recipient(self):
-        return self.recipient
+    def get_date(self):
+        return self.date
 
     def get_size(self):
         return self.size
@@ -84,7 +84,15 @@ class Message:
             f.write("\n")
             f.write(data)
 
+    def create_announcement(self):
+        name = self.name
+        form = self.format
+        date = self.date
+        message = "Data from {} created on {} in format {} is available".format(name, date, form)
+        announce.main(message)
+
+
 
 if __name__ == "__main__":
     one = Message("Test1", 100, "A", False, None, 0, None)
-    print(one.get_dataID())
+    one.create_announcement()

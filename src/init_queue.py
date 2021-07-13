@@ -12,6 +12,7 @@ def main():
 
     def callback(ch, method, properties, body):
         print(" [x] Received % r" % body.decode())
+        #TODO: use the body to create a  Message object
         time.sleep(body.count(b'.'))
         print(" [x] Done")
         ch.basic_ack(delivery_tag=method.delivery_tag)
