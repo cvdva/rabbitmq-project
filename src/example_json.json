@@ -2,10 +2,8 @@
     "name": "server/client_name",
     "sourceID": "number given by server", 
     "format": "current format of data",
-    "destination": {
-        "private": true,
-        "intendedRecipient": "name of consumer"
-        },
+    "private": "if the data is only for one recipient",
+    "date": "Date data was created",
     "size": "Size of data",
-    "Type": "Request for data or offering data"
+    "dataID": "Assigned by handler",
 }

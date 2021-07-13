@@ -1,9 +1,9 @@
 import csv
 from src import announce
 
+
 class Message:
-    def __init__(self, name='', sourceID=0, format=None, private=False, date=None, size=0, Type=None,
-                 dataID=0):
+    def __init__(self, name='', sourceID=0, format=None, private=False, date=None, size=0, dataID=0):
         self.name = name
         full_list = self.open_file("sourcelog.csv")
         names = []
@@ -26,7 +26,6 @@ class Message:
         self.private = private
         self.date = date
         self.size = size
-        self.type = Type
         data_list = self.open_file("datalog.csv")
         sids = []
         dids = []
@@ -40,7 +39,6 @@ class Message:
         else:
             self.dataID = dataID
         self.write_to_file("datalog.csv", "{}, {}, {}".format(self.sourceID, self.dataID, self.format))
-
 
     def get_name(self):
         return self.name
@@ -59,9 +57,6 @@ class Message:
 
     def get_size(self):
         return self.size
-
-    def get_type(self):
-        return self.type
 
     def get_dataID(self):
         return self.dataID
@@ -90,7 +85,6 @@ class Message:
         date = self.date
         message = "Data from {} created on {} in format {} is available".format(name, date, form)
         announce.main(message)
-
 
 
 if __name__ == "__main__":
