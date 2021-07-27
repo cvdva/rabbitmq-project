@@ -103,6 +103,20 @@ class Message:
         announce.main((json_data))
 
 
+def receive(body):
+    name = body['name']
+    sourceid = body['sourceID']
+    person = body['person']
+    app = body['app']
+    form = body['format']
+    private = body['private']
+    date = body['date']
+    size = body['size']
+    obj = Message(name, sourceid, person, app, form, private, date, size)
+    print('created object')
+    obj.create_announcement()
+
+
 if __name__ == "__main__":
     one = Message("Test1", 100, "Heddle", "Civ v 3.4", "A", False, None, 0, None)
     one.create_announcement()

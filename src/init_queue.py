@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import pika, sys, os
 import time
+import json
+from src import handler
 
 def main():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
@@ -12,7 +14,8 @@ def main():
 
     def callback(ch, method, properties, body):
         print(" [x] Received % r" % body.decode())
-        #TODO: use the body to create a  Message object
+        messagej = json.loads(body)
+        handler.receive(messagej)
         time.sleep(body.count(b'.'))
         print(" [x] Done")
         ch.basic_ack(delivery_tag=method.delivery_tag)
