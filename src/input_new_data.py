@@ -30,4 +30,4 @@ if __name__ == "__main__":
     data['date'] = date
     data['size'] = size
     json_data = json.dumps(data)
-    send.main(json_data)
+    send.main(json_data, 'hello')

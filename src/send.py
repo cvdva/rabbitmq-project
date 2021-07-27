@@ -4,13 +4,13 @@ import json
 import sys
 import os
 
-def main(message):
+def main(message, que):
     connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
     channel = connection.channel()
-    channel.queue_declare(queue='hello',
+    channel.queue_declare(queue=que,
                           durable=True)
     channel.basic_publish(exchange='',
-                          routing_key='hello',
+                          routing_key=que,
                           body=message)
     print(" [x] Sent message")
     connection.close()

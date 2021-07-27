@@ -96,9 +96,9 @@ class Message:
         data['person'] = self.person
         data['app'] = self.app
         data['format'] = self.format
-        data['private'] = self.private
         data['date'] = self.date
         data['size'] = self.size
+        data['dataID'] = self.dataID
         json_data = json.dumps(data)
         announce.main((json_data))
 
@@ -114,7 +114,8 @@ def receive(body):
     size = body['size']
     obj = Message(name, sourceid, person, app, form, private, date, size)
     print('created object')
-    obj.create_announcement()
+    if obj.get_private() == "False":
+        obj.create_announcement()
 
 
 if __name__ == "__main__":
