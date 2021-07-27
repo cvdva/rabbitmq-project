@@ -1,9 +1,11 @@
 import csv
+import json
 from src import announce
 
 
 class Message:
-    def __init__(self, name='', sourceID=0, format=None, private=False, date=None, size=0, dataID=0):
+    def __init__(self, name='', sourceID=0, person='', app='', format=None, private=False, date=None,
+                 size=0, dataID=0):
         self.name = name
         full_list = self.open_file("sourcelog.csv")
         names = []
@@ -22,6 +24,8 @@ class Message:
                 self.write_to_file("sourcelog.csv", "{}, {}".format(name, self.sourceID))
         else:
             self.sourceID = sourceID
+        self.person = person
+        self.app = app
         self.format = format
         self.private = private
         self.date = date
@@ -45,6 +49,12 @@ class Message:
 
     def get_sourceID(self):
         return self.sourceID
+
+    def get_person(self):
+        return self.person
+
+    def get_app(self):
+        return self.app
 
     def get_format(self):
         return self.format
@@ -80,13 +90,19 @@ class Message:
             f.write(data)
 
     def create_announcement(self):
-        name = self.name
-        form = self.format
-        date = self.date
-        message = "Data from {} created on {} in format {} is available".format(name, date, form)
-        announce.main(message)
+        data = {}
+        data['name'] = self.name
+        data['souceID'] = self.sourceID
+        data['person'] = self.person
+        data['app'] = self.app
+        data['format'] = self.format
+        data['private'] = self.private
+        data['date'] = self.date
+        data['size'] = self.size
+        json_data = json.dumps(data)
+        announce.main((json_data))
 
 
 if __name__ == "__main__":
-    one = Message("Test1", 100, "A", False, None, 0, None)
+    one = Message("Test1", 100, "Heddle", "Civ v 3.4", "A", False, None, 0, None)
     one.create_announcement()

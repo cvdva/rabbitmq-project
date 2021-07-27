@@ -3,6 +3,8 @@ from src import send
 
 if __name__ == "__main__":
     name = input("Your institution name: \n")
+    person = input("Your name: \n")
+    app = input("Application and version: \n")
     sourceID = input("Your source ID if known (Enter if unknown): \n")
     form = input("Current format of your data: \n")
     private = input("Would you like this data only sent to one group? (True/False): \n")
@@ -12,6 +14,8 @@ if __name__ == "__main__":
     data = {}
     data['name'] = name
     data['souceID'] = sourceID
+    data['person'] = person
+    data['app'] = app
     data['format'] = form
     data['private'] = private
     data['date'] = date
