@@ -10,11 +10,15 @@ def main():
 
     def on_request(ch, method, properties, body):
         print(" [x] Received % r" % body.decode())
-        request_handler.receive(body)
+        answer = request_handler.receive(body)
+        if answer == None:
+            response = "Invalid dataID"
+        else:
+            response = "Working on it"
         ch.basic_publish(exchange='',
-                         routing_key=props.reply_to,
+                         routing_key=properties.reply_to,
                          properties=pika.BasicProperties(correlation_id= \
-                                                             props.correlation_id),
+                                                             properties.correlation_id),
                          body=str(response))
         print(" [x] Done")
         ch.basic_ack(delivery_tag=method.delivery_tag)

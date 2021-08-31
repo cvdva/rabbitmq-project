@@ -18,8 +18,7 @@ class Request:
         if dataID in dids:
             self.dataID = dataID
         else:
-            # TODO: respond to sender that the data ID is invalid
-            pass
+            self.dataID = None
         self.format = format
 
 
@@ -61,6 +60,10 @@ def receive(body):
     form = body['format']
     obj = Request(name, person, dataID, form)
     print('created object')
+    if obj.get_dataID() == None:
+        return None
+    else:
+        return True
 
 
 #if __name__ == "__main__":
