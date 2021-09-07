@@ -2,6 +2,7 @@
 import pika, sys, os
 import time
 from src import request_handler
+import json
 
 def main():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
@@ -10,6 +11,7 @@ def main():
 
     def on_request(ch, method, properties, body):
         print(" [x] Received % r" % body.decode())
+        body = json.loads(body)
         answer = request_handler.receive(body)
         if answer == None:
             response = "Invalid dataID"
