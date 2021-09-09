@@ -18,8 +18,8 @@ class Producer:
             ids.append(row[2])
             queues.append(row[3])
         if sourceID == 0:
-            if self.inst in names and self.person :
-                name_index = names.index(institution)
+            if self.inst in insts and self.person in names:
+                name_index = insts.index(institution)
                 id = ids[name_index]
                 self.sourceID = id
                 self.queue = queues[name_index]
@@ -163,5 +163,5 @@ def write_to_file(file_name, data):
 
 
 if __name__ == "__main__":
-    one = Producer("CNU", "Cassie")
+    one = Producer("CNU", "Villarreal")
     print(one.get_queue())

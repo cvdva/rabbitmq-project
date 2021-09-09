@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d6d86cde-88e3-4663-a7fd-f1b9a9864383" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sourcelog.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/sourcelog.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +44,7 @@
           <entry key="dummy" value="25" />
           <entry key="json" value="132" />
           <entry key="md" value="875" />
-          <entry key="py" value="7892" />
+          <entry key="py" value="8093" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -53,7 +52,7 @@
           <entry key="JSON" value="132" />
           <entry key="Markdown" value="875" />
           <entry key="PLAIN_TEXT" value="25" />
-          <entry key="Python" value="7892" />
+          <entry key="Python" value="8093" />
         </counts>
       </usages-collector>
     </session>
@@ -126,16 +125,16 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/handler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
-              <caret line="34" column="23" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
+            <state relative-caret-position="228">
+              <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
-                <marker date="1631225155846" expanded="true" signature="65:1065" ph="..." />
-                <marker date="1631225155846" expanded="true" signature="1079:1080" ph="..." />
-                <marker date="1631225155846" expanded="true" signature="1079:1084" ph="..." />
-                <marker date="1631225155846" expanded="true" signature="2623:2653" ph="..." />
-                <marker date="1631225155846" expanded="true" signature="2884:2911" ph="..." />
-                <marker date="1631225155846" expanded="true" signature="3341:4182" ph="..." />
+                <marker date="1631225396333" expanded="true" signature="65:1251" ph="..." />
+                <marker date="1631225396333" expanded="true" signature="1265:1266" ph="..." />
+                <marker date="1631225396333" expanded="true" signature="1265:1270" ph="..." />
+                <marker date="1631225396333" expanded="true" signature="2809:2839" ph="..." />
+                <marker date="1631225396333" expanded="true" signature="3070:3097" ph="..." />
+                <marker date="1631225396333" expanded="true" signature="3527:4368" ph="..." />
               </folding>
             </state>
           </provider>
@@ -393,12 +392,12 @@
     <frame x="66" y="25" width="1189" height="794" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18921232" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18921232" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3275862" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3275862" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39942938" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -546,16 +545,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/handler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="34" column="23" selection-start-line="34" selection-start-column="23" selection-end-line="34" selection-end-column="23" />
+        <state relative-caret-position="228">
+          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
-            <marker date="1631225155846" expanded="true" signature="65:1065" ph="..." />
-            <marker date="1631225155846" expanded="true" signature="1079:1080" ph="..." />
-            <marker date="1631225155846" expanded="true" signature="1079:1084" ph="..." />
-            <marker date="1631225155846" expanded="true" signature="2623:2653" ph="..." />
-            <marker date="1631225155846" expanded="true" signature="2884:2911" ph="..." />
-            <marker date="1631225155846" expanded="true" signature="3341:4182" ph="..." />
+            <marker date="1631225396333" expanded="true" signature="65:1251" ph="..." />
+            <marker date="1631225396333" expanded="true" signature="1265:1266" ph="..." />
+            <marker date="1631225396333" expanded="true" signature="1265:1270" ph="..." />
+            <marker date="1631225396333" expanded="true" signature="2809:2839" ph="..." />
+            <marker date="1631225396333" expanded="true" signature="3070:3097" ph="..." />
+            <marker date="1631225396333" expanded="true" signature="3527:4368" ph="..." />
           </folding>
         </state>
       </provider>
