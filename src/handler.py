@@ -44,26 +44,9 @@ class Producer:
 
 
 class Message:
-    def __init__(self, name='', sourceID=0, person='', app='', format=None, private=False, date=None,
-                 size=0, dataID=0):
+    def __init__(self, name, person, sourceID, app='', format=None, private=False, date=None, size=0, dataID=0):
         self.name = name
-        full_list = open_file("sourcelog.csv")
-        names = []
-        ids = []
-        for row in full_list:
-            names.append(row[0])
-            ids.append(row[1])
-        if sourceID == 0:
-            if self.name in names:
-                name_index = names.index(name)
-                id = ids[name_index]
-                self.sourceID = id
-            else:
-                last_id = int(ids[-1])
-                self.sourceID = last_id + 1
-                write_to_file("sourcelog.csv", "{}, {}".format(name, self.sourceID))
-        else:
-            self.sourceID = sourceID
+        self.sourceID = sourceID
         self.person = person
         self.app = app
         self.format = format
@@ -82,7 +65,8 @@ class Message:
             self.dataID = int(dids[-1]) + 1
         else:
             self.dataID = dataID
-        write_to_file("datalog.csv", "{}, {}, {}".format(self.sourceID, self.dataID, self.format))
+        write_to_file("datalog.csv", "{}, {}, {}, {}, {}, {}, {}".format(self.sourceID, self.dataID, self.format,
+                                                                     self.name, self.person, self.app, self.date))
 
     def get_name(self):
         return self.name
@@ -111,8 +95,6 @@ class Message:
     def get_dataID(self):
         return self.dataID
 
-
-
     def create_announcement(self):
         data = {}
         data['name'] = self.name
@@ -136,7 +118,7 @@ def receive(body):
     private = body['private']
     date = body['date']
     size = body['size']
-    obj = Message(name, sourceid, person, app, form, private, date, size)
+    obj = Message(name, person, sourceid, app, form, private, date, size)
     print('created object')
     if obj.get_private() == "False":
         obj.create_announcement()
