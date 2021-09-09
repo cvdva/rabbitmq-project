@@ -11,6 +11,8 @@ if __name__ == "__main__":
     # date = input("Enter date of data creation (MM/DD/YY): \n")
     # size = input("Data size (in MB): \n")
 
+    # TODO: FINAL MESSAGE SHOULD HAVE ALL DATA IN IT
+
     name = "CNU"
     person = "Cassie"
     dataID = '1001'

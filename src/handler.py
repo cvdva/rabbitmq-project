@@ -3,11 +3,33 @@ import json
 from src import announce
 
 
+class Producer:
+    def __init__(self, institution='', sourceID=0, person=''):
+        self.inst = institution
+        self.person = person
+        full_list = open_file("sourcelog.csv")
+        names = []
+        ids = []
+        for row in full_list:
+            names.append(row[0])
+            ids.append(row[1])
+        if sourceID == 0:
+            if self.inst in names and self.person :
+                name_index = names.index(institution)
+                id = ids[name_index]
+                self.sourceID = id
+            else:
+                last_id = int(ids[-1])
+                self.sourceID = last_id + 1
+                write_to_file("sourcelog.csv", "{}, {}, {}".format(institution, self.sourceID, person))
+
+
+
 class Message:
     def __init__(self, name='', sourceID=0, person='', app='', format=None, private=False, date=None,
                  size=0, dataID=0):
         self.name = name
-        full_list = self.open_file("sourcelog.csv")
+        full_list = open_file("sourcelog.csv")
         names = []
         ids = []
         for row in full_list:
@@ -21,7 +43,7 @@ class Message:
             else:
                 last_id = int(ids[-1])
                 self.sourceID = last_id + 1
-                self.write_to_file("sourcelog.csv", "{}, {}".format(name, self.sourceID))
+                write_to_file("sourcelog.csv", "{}, {}".format(name, self.sourceID))
         else:
             self.sourceID = sourceID
         self.person = person
@@ -30,7 +52,7 @@ class Message:
         self.private = private
         self.date = date
         self.size = size
-        data_list = self.open_file("datalog.csv")
+        data_list = open_file("datalog.csv")
         sids = []
         dids = []
         form = []
@@ -42,7 +64,7 @@ class Message:
             self.dataID = int(dids[-1]) + 1
         else:
             self.dataID = dataID
-        self.write_to_file("datalog.csv", "{}, {}, {}".format(self.sourceID, self.dataID, self.format))
+        write_to_file("datalog.csv", "{}, {}, {}".format(self.sourceID, self.dataID, self.format))
 
     def get_name(self):
         return self.name
@@ -71,23 +93,7 @@ class Message:
     def get_dataID(self):
         return self.dataID
 
-    def open_file(self, file_name):
-        '''
-        Opens the csv file under the name given
-        :param file_name: The name of the file to be open
-        :return: Raw list from the csv
-        '''
-        list = []
-        with open(file_name, newline='') as f:
-            reader = csv.reader(f)
-            for row in reader:
-                list.append(row)
-        return list
 
-    def write_to_file(self, file_name, data):
-        with open(file_name, 'a') as f:
-            f.write("\n")
-            f.write(data)
 
     def create_announcement(self):
         data = {}
@@ -116,6 +122,26 @@ def receive(body):
     print('created object')
     if obj.get_private() == "False":
         obj.create_announcement()
+
+
+def open_file(file_name):
+    '''
+    Opens the csv file under the name given
+    :param file_name: The name of the file to be open
+    :return: Raw list from the csv
+    '''
+    list = []
+    with open(file_name, newline='') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            list.append(row)
+    return list
+
+
+def write_to_file(file_name, data):
+    with open(file_name, 'a') as f:
+        f.write("\n")
+        f.write(data)
 
 
 if __name__ == "__main__":
