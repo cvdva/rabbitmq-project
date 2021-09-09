@@ -4,25 +4,43 @@ from src import announce
 
 
 class Producer:
-    def __init__(self, institution='', sourceID=0, person=''):
+    def __init__(self, institution, person, sourceID=0):
         self.inst = institution
         self.person = person
         full_list = open_file("sourcelog.csv")
+        insts = []
         names = []
         ids = []
+        queues = []
         for row in full_list:
-            names.append(row[0])
-            ids.append(row[1])
+            insts.append(row[0])
+            names.append(row[1])
+            ids.append(row[2])
+            queues.append(row[3])
         if sourceID == 0:
             if self.inst in names and self.person :
                 name_index = names.index(institution)
                 id = ids[name_index]
                 self.sourceID = id
+                self.queue = queues[name_index]
             else:
                 last_id = int(ids[-1])
                 self.sourceID = last_id + 1
-                write_to_file("sourcelog.csv", "{}, {}, {}".format(institution, self.sourceID, person))
+                last_queue = int(queues[-1])
+                self.queue = last_queue + 1
+                write_to_file("sourcelog.csv", "{}, {}, {}, {}".format(institution, person, self.sourceID, self.queue))
 
+    def get_inst(self):
+        return self.inst
+
+    def get_name(self):
+        return self.person
+
+    def get_sourceID(self):
+        return self.sourceID
+
+    def get_queue(self):
+        return self.queue
 
 
 class Message:
@@ -145,5 +163,5 @@ def write_to_file(file_name, data):
 
 
 if __name__ == "__main__":
-    one = Message("Test1", 100, "Heddle", "Civ v 3.4", "A", False, None, 0, None)
-    one.create_announcement()
+    one = Producer("CNU", "Cassie")
+    print(one.get_queue())
