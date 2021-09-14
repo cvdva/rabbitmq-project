@@ -22,4 +22,5 @@ if __name__ == "__main__":
     json_data = json.dumps(data)
     queue = send_reply.RPCSender('subscribe')
     reply = queue.call(json_data)
-    print("Reply: {}".format(reply))
+    reply = json.loads(reply)
+    print("Your sourceID is: {}".format(reply))
