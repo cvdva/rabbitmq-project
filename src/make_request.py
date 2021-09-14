@@ -24,6 +24,6 @@ if __name__ == "__main__":
     data['dataID'] = dataID
     data['format'] = form
     json_data = json.dumps(data)
-    queue = send_reply.RPCSender()
+    queue = send_reply.RPCSender('request')
     reply = queue.call(json_data)
     print("Reply: {}".format(reply))

@@ -5,11 +5,12 @@ import uuid
 
 class RPCSender(object):
 
-    def __init__(self):
+    def __init__(self, queue_name):
         self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
         self.channel = self.connection.channel()
         result = self.channel.queue_declare(queue="", exclusive=True)
         self.callback_queue = result.method.queue
+        self.queue_name = queue_name
 
         self.channel.basic_consume(
             queue=self.callback_queue,
@@ -27,7 +28,7 @@ class RPCSender(object):
         self.corr_id = str(uuid.uuid4())
         self.channel.basic_publish(
             exchange='',
-            routing_key='request',
+            routing_key=self.queue_name,
             properties=pika.BasicProperties(
                 reply_to=self.callback_queue,
                 correlation_id=self.corr_id,
@@ -39,5 +40,5 @@ class RPCSender(object):
         return self.response
 
 
-attempt = RPCSender()
+#attempt = RPCSender()
 

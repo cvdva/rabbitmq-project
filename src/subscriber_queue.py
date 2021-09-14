@@ -2,6 +2,7 @@
 import pika, sys, os
 import time
 from src import request_handler
+from src import handler
 import json
 
 def main():
@@ -13,17 +14,23 @@ def main():
         print(" [x] Received % r" % body.decode())
         body = json.loads(body)
         name = body['name']
-        #TODO: Create a producer class and return the sourceID
+        person = body['person']
+        sourceID = body['sourceID']
+        if sourceID == '':
+            ob = handler.Producer(name, person)
+        else:
+            ob = handler.Producer(name, person, sourceID)
+        new_id = ob.get_sourceID()
         ch.basic_publish(exchange='',
                          routing_key=properties.reply_to,
                          properties=pika.BasicProperties(correlation_id= \
                                                              properties.correlation_id),
-                         body=str(response))
+                         body=str(new_id))
         print(" [x] Done")
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
     channel.basic_qos(prefetch_count=1)
-    channel.basic_consume(queue='request', on_message_callback=on_request)
+    channel.basic_consume(queue='subscribe', on_message_callback=on_request)
     print(' [*] Waiting for messages. To exit press CTRL+C')
     channel.start_consuming()
 
