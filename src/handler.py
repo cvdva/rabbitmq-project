@@ -29,6 +29,9 @@ class Producer:
                 last_queue = int(queues[-1])
                 self.queue = last_queue + 1
                 write_to_file("sourcelog.csv", "{}, {}, {}, {}".format(institution, person, self.sourceID, self.queue))
+        else:
+            index = ids.index(sourceID)
+            self.queue = queues[index]
 
     def get_inst(self):
         return self.inst
@@ -123,6 +126,17 @@ def receive(body):
     print('created object')
     if obj.get_private() == "False":
         obj.create_announcement()
+
+
+def receive_producer(body):
+    institution = body['institution']
+    name = body['name']
+    sourceID = body['sourceID']
+    if sourceID == '':
+        obj = Producer(institution, name)
+    else:
+        obj = Producer(institution, name, sourceID)
+    return obj.get_queue()
 
 
 def open_file(file_name):

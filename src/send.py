@@ -6,9 +6,10 @@ import os
 
 
 def main(message, que):
-    url = os.environ.get('CLOUDAMQP_URL', "amqps://hgaxqhai:BZL-fO3G7Pkuo-3V2manFRbqI4Z7LnK7@toad.rmq.cloudamqp.com/hgaxqhai")
-    params = pika.URLParameters(url)
-    connection = pika.BlockingConnection(params)
+    # url = os.environ.get('CLOUDAMQP_URL', "amqps://hgaxqhai:BZL-fO3G7Pkuo-3V2manFRbqI4Z7LnK7@toad.rmq.cloudamqp.com/hgaxqhai")
+    # params = pika.URLParameters(url)
+    # connection = pika.BlockingConnection(params)
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
     channel = connection.channel()
     channel.queue_declare(queue=que,
                           durable=True)
