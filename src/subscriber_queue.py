@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 import pika, sys, os
-import time
-from src import request_handler
-from src import handler
+import src.handler
 import json
 
 def main():
@@ -17,9 +15,9 @@ def main():
         person = body['person']
         sourceID = body['sourceID']
         if sourceID == '':
-            ob = handler.Producer(name, person)
+            ob = src.handler.Producer(name, person)
         else:
-            ob = handler.Producer(name, person, sourceID)
+            ob = src.handler.Producer(name, person, sourceID)
         new_id = ob.get_sourceID()
         ch.basic_publish(exchange='',
                          routing_key=properties.reply_to,

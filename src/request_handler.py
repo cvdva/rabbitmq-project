@@ -1,6 +1,6 @@
 import csv
 import json
-from src import announce
+import src.announce
 
 
 class Request:

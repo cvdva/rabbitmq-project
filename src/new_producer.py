@@ -1,6 +1,6 @@
 import json
-from src import send_reply
-from src import need_data_queue
+import src.send_reply
+import src.need_data_queue
 
 if __name__ == "__main__":
 
@@ -13,9 +13,9 @@ if __name__ == "__main__":
     data['institution'] = institution
     data['sourceID'] = 0
     json_data = json.dumps(data)
-    queue = send_reply.RPCSender('register')
+    queue = src.send_reply.RPCSender('register')
     print('Sent request server. Waiting on reply')
     reply = queue.call(json_data)
     input('Reply received. Start listening? (Enter or ctl + c to exit)\n')
-    need_data_queue.main(reply)
+    src.need_data_queue.main(reply)
 

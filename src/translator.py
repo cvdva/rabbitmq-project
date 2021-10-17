@@ -1,9 +1,7 @@
-from src import send
-
 import pika, sys, os
 import time
 import json
-from src import handler
+
 
 def main():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))

@@ -1,5 +1,5 @@
 import json
-from src import send_reply
+import src.send_reply
 
 if __name__ == "__main__":
     # name = input("Your institution name: \n")
@@ -24,6 +24,6 @@ if __name__ == "__main__":
     data['dataID'] = dataID
     data['format'] = form
     json_data = json.dumps(data)
-    queue = send_reply.RPCSender('request')
+    queue = src.send_reply.RPCSender('request')
     reply = queue.call(json_data)
     print("Reply: {}".format(reply))

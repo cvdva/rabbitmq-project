@@ -1,5 +1,5 @@
 import json
-from src import send
+import src.send
 
 if __name__ == "__main__":
     # name = input("Your institution name: \n")
@@ -30,4 +30,4 @@ if __name__ == "__main__":
     data['date'] = date
     data['size'] = size
     json_data = json.dumps(data)
-    send.main(json_data, 'hello')
+    src.send.main(json_data, 'hello')
