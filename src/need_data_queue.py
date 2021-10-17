@@ -16,7 +16,7 @@ def main(binding):
     print(' [x] Waiting for messages')
 
     def callback(ch, method, properties, body):
-        print(' [x] {} from {}'.format(body, method.routing_key))
+        print(' [x] {} from {}'.format(body.decode() , method.routing_key))
 
     channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
 
