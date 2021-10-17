@@ -7,11 +7,11 @@ def main():
     channel = connection.channel()
 
     channel.queue_declare(queue='announce', durable=True)
-    print(' [*] Waiting for messages. To exit press CTRL+C')
+    print(' [*] Waiting for announce messages. To exit press CTRL+C')
 
 
     def callback(ch, method, properties, body):
-        print(" [x] Received % r" % body.decode())
+        print(" [x] Received on announce queue % r" % body.decode())
         time.sleep(body.count(b'.'))
         print(" [x] Done")
         ch.basic_ack(delivery_tag=method.delivery_tag)

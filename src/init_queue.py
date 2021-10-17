@@ -2,7 +2,7 @@
 import pika, sys, os
 import time
 import json
-from src import handler
+import src.handler
 
 def main():
     # url = os.environ.get('CLOUDAMQP_URL',
@@ -14,13 +14,13 @@ def main():
     channel = connection.channel()
 
     channel.queue_declare(queue='hello', durable=True)
-    print(' [*] Waiting for messages. To exit press CTRL+C')
+    print(' [*] Waiting for hello messages. To exit press CTRL+C')
 
 
     def callback(ch, method, properties, body):
-        print(" [x] Received % r" % body.decode())
+        print(" [x] Received on hello queue % r" % body.decode())
         messagej = json.loads(body)
-        handler.receive(messagej)
+        src.handler.receive(messagej)
         time.sleep(body.count(b'.'))
         print(" [x] Done")
         ch.basic_ack(delivery_tag=method.delivery_tag)

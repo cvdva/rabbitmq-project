@@ -11,7 +11,7 @@ def main():
     channel.queue_declare(queue='subscribe', durable=True)
 
     def on_request(ch, method, properties, body):
-        print(" [x] Received % r" % body.decode())
+        print(" [x] Received on subscribe queue % r" % body.decode())
         body = json.loads(body)
         name = body['name']
         person = body['person']
@@ -31,7 +31,7 @@ def main():
 
     channel.basic_qos(prefetch_count=1)
     channel.basic_consume(queue='subscribe', on_message_callback=on_request)
-    print(' [*] Waiting for messages. To exit press CTRL+C')
+    print(' [*] Waiting for subscribe messages. To exit press CTRL+C')
     channel.start_consuming()
 
 

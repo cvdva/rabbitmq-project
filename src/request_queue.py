@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import pika, sys, os
 import time
-from src import request_handler
+import src.request_handler
 import json
 
 
@@ -11,9 +11,9 @@ def main():
     channel.queue_declare(queue='request', durable=True)
 
     def on_request(ch, method, properties, body):
-        print(" [x] Received % r" % body.decode())
+        print(" [x] Received on request queue % r" % body.decode())
         body = json.loads(body)
-        answer = request_handler.receive(body)
+        answer = src.request_handler.receive(body)
         if answer == None:
             response = "Invalid dataID"
         else:
@@ -28,7 +28,7 @@ def main():
 
     channel.basic_qos(prefetch_count=1)
     channel.basic_consume(queue='request', on_message_callback=on_request)
-    print(' [*] Waiting for messages. To exit press CTRL+C')
+    print(' [*] Waiting for request messages. To exit press CTRL+C')
     channel.start_consuming()
 
 

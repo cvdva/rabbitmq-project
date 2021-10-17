@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import pika, sys, os
 import time
-from src import handler
+import src.handler
 import json
 
 
@@ -11,9 +11,9 @@ def main():
     channel.queue_declare(queue='register', durable=True)
 
     def on_request(ch, method, properties, body):
-        print(" [x] Received % r" % body.decode())
+        print(" [x] Received on register queue % r" % body.decode())
         body = json.loads(body)
-        answer = handler.receive_producer(body)
+        answer = src.handler.receive_producer(body)
         print("Listen with queue tag: {}".format(answer))
         ch.basic_publish(exchange='',
                          routing_key=properties.reply_to,
@@ -25,7 +25,7 @@ def main():
 
     channel.basic_qos(prefetch_count=1)
     channel.basic_consume(queue='register', on_message_callback=on_request)
-    print(' [*] Waiting for messages. To exit press CTRL+C')
+    print(' [*] Waiting for register messages. To exit press CTRL+C')
     channel.start_consuming()
 
 

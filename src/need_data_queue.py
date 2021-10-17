@@ -13,10 +13,10 @@ def main(binding):
     queue_name = result.method.queue
 
     channel.queue_bind(exchange='need_data', queue=queue_name, routing_key=binding)
-    print(' [x] Waiting for messages')
+    print(' [*] Waiting for need data messages')
 
     def callback(ch, method, properties, body):
-        print(' [x] {} from {}'.format(body.decode() , method.routing_key))
+        print(' [x] Received {} from {} on need data queue'.format(body.decode() , method.routing_key))
 
     channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
 
