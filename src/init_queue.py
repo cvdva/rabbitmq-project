@@ -5,13 +5,13 @@ import json
 from src import handler
 
 def main():
-    url = os.environ.get('CLOUDAMQP_URL',
-                         "amqps://hgaxqhai:BZL-fO3G7Pkuo-3V2manFRbqI4Z7LnK7@toad.rmq.cloudamqp.com/hgaxqhai")
-    params = pika.URLParameters(url)
-    connection = pika.BlockingConnection(params)
+    # url = os.environ.get('CLOUDAMQP_URL',
+    #                      "amqps://hgaxqhai:BZL-fO3G7Pkuo-3V2manFRbqI4Z7LnK7@toad.rmq.cloudamqp.com/hgaxqhai")
+    # params = pika.URLParameters(url)
+    # connection = pika.BlockingConnection(params)
+    # channel = connection.channel()
+    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
     channel = connection.channel()
-    #connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
-    #channel = connection.channel()
 
     channel.queue_declare(queue='hello', durable=True)
     print(' [*] Waiting for messages. To exit press CTRL+C')
