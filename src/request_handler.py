@@ -17,8 +17,10 @@ class Request:
             form.append(row[2])
         if dataID in dids:
             self.dataID = dataID
+            self.sourceID = sids[dids.index(dataID)]
         else:
             self.dataID = None
+            self.sourceID = None
         self.format = format
 
 
@@ -33,6 +35,9 @@ class Request:
 
     def get_format(self):
         return self.format
+
+    def get_sourceID(self):
+        return self.sourceID
 
     def open_file(self, file_name):
         '''
@@ -63,7 +68,7 @@ def receive(body):
     if obj.get_dataID() == None:
         return None
     else:
-        return True
+        return obj.get_dataID(), obj.get_sourceID()
 
 
 #if __name__ == "__main__":

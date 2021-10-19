@@ -1,6 +1,7 @@
 import csv
 import json
 import src.announce
+import src.send_need_data
 
 
 class Producer:
@@ -111,6 +112,44 @@ class Message:
         data['dataID'] = self.dataID
         json_data = json.dumps(data)
         src.announce.main((json_data))
+
+
+class DataRequest:
+    def __init__(self, ex, prop, key, dataID, sourceID):
+        self.ex = ex
+        self.prop = prop
+        self.key = key
+        self.dataID = dataID
+        data_list = open_file("datalog.csv")
+        sids = []
+        dids = []
+        for row in data_list:
+            sids.append(row[0].strip())
+            dids.append(row[1].strip())
+        index = dids.index(self.dataID)
+        sid = sids[index]
+        if sourceID == sid:
+            self.sourceID = sourceID
+        else:
+            self.sourceID = None
+
+    def get_ex(self):
+        return self.ex
+
+    def get_prop(self):
+        return self.prop
+
+    def get_key(self):
+        return self.key
+
+    def get_dataID(self):
+        return self.dataID
+
+    def get_sourceID(self):
+        return self.sourceID
+
+    def send_request(self):
+        src.send_need_data.main((self.ex, self.prop, self.key, self.dataID), self.sourceID)
 
 
 def receive(body):

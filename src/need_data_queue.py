@@ -16,6 +16,7 @@ def main(binding):
     print(' [*] Waiting for need data messages')
 
     def callback(ch, method, properties, body):
+        ex, prop, key, dataID = body.decode()
         print(' [x] Received {} from {} on need data queue'.format(body.decode() , method.routing_key))
 
     channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)

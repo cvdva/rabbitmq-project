@@ -24,9 +24,11 @@ def main():
             print(" [x] Done")
             ch.basic_ack(delivery_tag=method.delivery_tag)
         else:
+            dataID, sourceID = answer
             ex = ''
             key = properties.reply_to
             prop = pika.BasicProperties(correlation_id=properties.correlation_id)
+            print(dataID, sourceID)
 
     channel.basic_qos(prefetch_count=1)
     channel.basic_consume(queue='request', on_message_callback=on_request)
