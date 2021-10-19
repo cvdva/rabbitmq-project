@@ -1,9 +1,10 @@
 {
-    "name": "server/client_name",
-    "sourceID": "number given by server", 
-    "format": "current format of data",
-    "private": "if the data is only for one recipient",
-    "date": "Date data was created",
-    "size": "Size of data",
-    "dataID": "Assigned by handler",
+    "name": "CNU",
+    "person": "Cassie",
+    "sourceID": "1", 
+    "format": "CSV",
+    "app": "CIV",
+    "private": "False",
+    "date": "05/27/2021",
+    "size": "1GB"
 }

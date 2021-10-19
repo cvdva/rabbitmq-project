@@ -30,7 +30,7 @@ def encode_json(json_name):
     name = json_name + ".json"
     with open(name) as f:
         d = json.load(f)
-        print(d)
+        d = json.dumps(d)
         print(type(d))
     d = str(d)
     return d

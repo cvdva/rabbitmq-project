@@ -1,6 +1,7 @@
 import json
 import src.send_reply
 import src.need_data_queue
+import src.send
 
 if __name__ == "__main__":
 
@@ -16,6 +17,10 @@ if __name__ == "__main__":
     queue = src.send_reply.RPCSender('register')
     print('Sent request server. Waiting on reply')
     reply = queue.call(json_data)
-    input('Reply received. Start listening? (Enter or ctl + c to exit)\n')
+    path = input('Reply received. Enter path of file\n')
+    json_path = input("Input JSON file path \n")
+    file = src.send.encode_json(json_path)
+
+    src.send.main(file, 'hello')
     src.need_data_queue.main(reply)
 

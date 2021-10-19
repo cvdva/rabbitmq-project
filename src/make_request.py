@@ -15,8 +15,8 @@ if __name__ == "__main__":
 
     name = "CNU"
     person = "Cassie"
-    dataID = '1001'
-    form = 'A'
+    dataID = '1005'
+    form = 'CSV'
 
     data = {}
     data['name'] = name

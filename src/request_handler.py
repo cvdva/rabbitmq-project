@@ -13,7 +13,7 @@ class Request:
         form = []
         for row in data_list:
             sids.append(row[0])
-            dids.append(row[1])
+            dids.append(row[1].strip())
             form.append(row[2])
         if dataID in dids:
             self.dataID = dataID

@@ -16,15 +16,17 @@ def main():
         answer = src.request_handler.receive(body)
         if answer == None:
             response = "Invalid dataID"
+            ch.basic_publish(exchange='',
+                             routing_key=properties.reply_to,
+                             properties=pika.BasicProperties(correlation_id= \
+                                                                 properties.correlation_id),
+                             body=str(response))
+            print(" [x] Done")
+            ch.basic_ack(delivery_tag=method.delivery_tag)
         else:
-            response = "Working on it"
-        ch.basic_publish(exchange='',
-                         routing_key=properties.reply_to,
-                         properties=pika.BasicProperties(correlation_id= \
-                                                             properties.correlation_id),
-                         body=str(response))
-        print(" [x] Done")
-        ch.basic_ack(delivery_tag=method.delivery_tag)
+            ex = ''
+            key = properties.reply_to
+            prop = pika.BasicProperties(correlation_id=properties.correlation_id)
 
     channel.basic_qos(prefetch_count=1)
     channel.basic_consume(queue='request', on_message_callback=on_request)
