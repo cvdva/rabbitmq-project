@@ -3,6 +3,7 @@ import pika, sys, os
 import time
 import src.request_handler
 import json
+import src.send_need_data
 
 
 def main():
@@ -24,11 +25,16 @@ def main():
             print(" [x] Done")
             ch.basic_ack(delivery_tag=method.delivery_tag)
         else:
-            dataID, sourceID = answer
-            ex = ''
-            key = properties.reply_to
-            prop = pika.BasicProperties(correlation_id=properties.correlation_id)
-            print(dataID, sourceID)
+            queue = answer.get_queue()
+            dataID = answer.get_dataID()
+            message = {}
+            message['ex'] = ''
+            message['key'] = properties.reply_to
+            message['prop'] = pika.BasicProperties(correlation_id=properties.correlation_id)
+            message['dataID'] = dataID
+            json_data = json.dumps(message)
+            print("requesting from producer", queue)
+            src.send_need_data.main(json_data, queue)
 
     channel.basic_qos(prefetch_count=1)
     channel.basic_consume(queue='request', on_message_callback=on_request)

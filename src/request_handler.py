@@ -22,7 +22,16 @@ class Request:
             self.dataID = None
             self.sourceID = None
         self.format = format
-
+        if self.dataID != None:
+            source_list = self.open_file("sourcelog.csv")
+            queue = []
+            sids = []
+            for row in source_list:
+                queue.append(row[3])
+                sids.append(row[2])
+            print(sids)
+            print(queue)
+            self.queue = queue[sids.index(self.sourceID)]
 
     def get_name(self):
         return self.name
@@ -38,6 +47,9 @@ class Request:
 
     def get_sourceID(self):
         return self.sourceID
+
+    def get_queue(self):
+        return self.queue
 
     def open_file(self, file_name):
         '''
@@ -68,7 +80,7 @@ def receive(body):
     if obj.get_dataID() == None:
         return None
     else:
-        return obj.get_dataID(), obj.get_sourceID()
+        return obj
 
 
 #if __name__ == "__main__":

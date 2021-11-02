@@ -14,10 +14,10 @@ class Producer:
         ids = []
         queues = []
         for row in full_list:
-            insts.append(row[0])
-            names.append(row[1])
-            ids.append(row[2])
-            queues.append(row[3])
+            insts.append(row[0].strip())
+            names.append(row[1].strip())
+            ids.append(row[2].strip())
+            queues.append(row[3].strip())
         if sourceID == 0:
             if self.inst in insts and self.person in names:
                 name_index = insts.index(institution)
