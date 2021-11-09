@@ -29,8 +29,6 @@ class Request:
             for row in source_list:
                 queue.append(row[3])
                 sids.append(row[2])
-            print(sids)
-            print(queue)
             self.queue = queue[sids.index(self.sourceID)]
 
     def get_name(self):

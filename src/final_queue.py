@@ -8,20 +8,16 @@ def main(binding):
     connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
     channel = connection.channel()
 
-    channel.exchange_declare(exchange='need_data', exchange_type='direct')
+    channel.exchange_declare(exchange='final', exchange_type='direct')
 
     result = channel.queue_declare(queue='', exclusive=True)
     queue_name = result.method.queue
 
-    channel.queue_bind(exchange='need_data', queue=queue_name, routing_key=binding)
-    print(' [*] Waiting for need data messages')
+    channel.queue_bind(exchange='final', queue=queue_name, routing_key=binding)
+    print(' [*] Waiting for final messages on {}'.format(binding))
 
     def callback(ch, method, properties, body):
-        body = json.loads(body)
-        dataID = body['dataID']
-        print(' [x] Received {} from {} on need data queue'.format(dataID, method.routing_key))
-        connection.close()
-
+        print(' [x] Received {} from {} on final queue'.format(body.decode(), method.routing_key))
 
     channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
 

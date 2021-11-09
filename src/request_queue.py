@@ -25,12 +25,17 @@ def main():
             print(" [x] Done")
             ch.basic_ack(delivery_tag=method.delivery_tag)
         else:
+            response = "Working"
+            ch.basic_publish(exchange='',
+                             routing_key=properties.reply_to,
+                             properties=pika.BasicProperties(correlation_id= \
+                                                                 properties.correlation_id),
+                             body=str(response))
+            print(" [x] Done")
+            ch.basic_ack(delivery_tag=method.delivery_tag)
             queue = answer.get_queue()
             dataID = answer.get_dataID()
             message = {}
-            message['ex'] = ''
-            message['key'] = properties.reply_to
-            message['prop'] = pika.BasicProperties(correlation_id=properties.correlation_id)
             message['dataID'] = dataID
             json_data = json.dumps(message)
             print("requesting from producer", queue)

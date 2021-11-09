@@ -26,4 +26,8 @@ echo Starting need data queue...
 python3 need_data_queue.py &
 echo
 
+echo Starting final queue...
+python3 final_queue.py &
+echo
+
 echo All queues started
