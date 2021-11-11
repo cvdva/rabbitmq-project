@@ -22,7 +22,6 @@ class RPCSender(object):
         if self.corr_id == properties.correlation_id:
             self.response = body
 
-
     def call(self, message):
         self.response = None
         self.corr_id = str(uuid.uuid4())

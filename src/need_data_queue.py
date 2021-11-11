@@ -2,6 +2,8 @@ import pika
 import sys
 import os
 import json
+import src.send_final_data
+import csv
 
 
 def main(binding):
@@ -20,12 +22,35 @@ def main(binding):
         body = json.loads(body)
         dataID = body['dataID']
         print(' [x] Received {} from {} on need data queue'.format(dataID, method.routing_key))
-        connection.close()
-
+        datum = open_file("datum.csv")
+        dids = []
+        paths = []
+        for line in datum:
+            dids.append(line[0])
+            paths.append(line[1])
+        i = dids.index(dataID)
+        path = paths[i]
+        with open(path, 'rb') as f:
+            contents = f.read()
+        src.send_final_data.main(contents, dataID)
 
     channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
 
     channel.start_consuming()
+
+
+def open_file(file_name):
+    '''
+    Opens the csv file under the name given
+    :param file_name: The name of the file to be open
+    :return: Raw list from the csv
+    '''
+    list = []
+    with open(file_name, newline='') as f:
+        reader = csv.reader(f)
+        for row in reader:
+            list.append(row)
+    return list
 
 
 if __name__ == '__main__':

@@ -4,6 +4,13 @@ import src.need_data_queue
 import src.send
 import src.send_final_data
 
+
+def write_to_file(file_name, data):
+    with open(file_name, 'a') as f:
+        f.write("\n")
+        f.write(data)
+
+
 if __name__ == "__main__":
 
     # print('Welcome to the messaging system.')
@@ -22,15 +29,18 @@ if __name__ == "__main__":
     reply = queue.call(json_data)
     # path = input('Reply received. Enter path of file\n')
     # json_path = input("Input JSON file path \n")
-    path = 'https://drive.google.com/file/d/11n9T0tAIlXkz7AVjTSmgKDsLY0HLohCn/view?usp=sharing'
-    byte_path = str.encode(path)
+    path = '/Users/cassie/Desktop/hi.txt'
+    with open(path, 'rb') as f:
+        contents = f.read()
     json_path = '/Users/cassie/Documents/School Stuff/CNU/Thesis Monster/PyCharm Projects/RabbitMQ/src/example_json'
     file = src.send.encode_json(json_path)
 
-    src.send.main(file, 'hello')
-    dataID = src.need_data_queue.main(reply)
-    print("Data id is {}".format(dataID))
-    dataID = str(dataID)
-    src.send_final_data.main(byte_path, dataID)
+    queue = src.send_reply.RPCSender('hello')
+    dataID = queue.call(file)
+    write_to_file("datum.csv", "{}, {}".format(dataID, path))
+    src.need_data_queue.main(reply)
+    # print("Data id is {}".format(dataID))
+    # dataID = str(dataID)
+    # src.send_final_data.main(contents, dataID)
 
 

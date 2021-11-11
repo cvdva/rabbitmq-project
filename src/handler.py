@@ -162,9 +162,9 @@ def receive(body):
     date = body['date']
     size = body['size']
     obj = Message(name, person, sourceid, app, form, private, date, size)
-    print('created object')
     if obj.get_private() == "False":
         obj.create_announcement()
+    return obj.get_dataID()
 
 
 def receive_producer(body):
