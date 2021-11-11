@@ -5,7 +5,10 @@ import json
 
 
 def main(binding):
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+    url = os.environ.get('CLOUDAMQP_URL',
+                         "amqps://hgaxqhai:BZL-fO3G7Pkuo-3V2manFRbqI4Z7LnK7@toad.rmq.cloudamqp.com/hgaxqhai")
+    params = pika.URLParameters(url)
+    connection = pika.BlockingConnection(params)
     channel = connection.channel()
 
     channel.exchange_declare(exchange='final', exchange_type='direct')

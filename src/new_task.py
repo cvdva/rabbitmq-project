@@ -2,8 +2,12 @@
 import pika
 import json
 import sys
+import os
 
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+url = os.environ.get('CLOUDAMQP_URL',
+                         "amqps://hgaxqhai:BZL-fO3G7Pkuo-3V2manFRbqI4Z7LnK7@toad.rmq.cloudamqp.com/hgaxqhai")
+params = pika.URLParameters(url)
+connection = pika.BlockingConnection(params)
 channel = connection.channel()
 channel.queue_declare(queue='hello', durable=True)
 message = json.load(example_json.json)

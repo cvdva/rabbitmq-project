@@ -7,7 +7,10 @@ import src.send_need_data
 
 
 def main():
-    connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+    url = os.environ.get('CLOUDAMQP_URL',
+                         "amqps://hgaxqhai:BZL-fO3G7Pkuo-3V2manFRbqI4Z7LnK7@toad.rmq.cloudamqp.com/hgaxqhai")
+    params = pika.URLParameters(url)
+    connection = pika.BlockingConnection(params)
     channel = connection.channel()
     channel.queue_declare(queue='request', durable=True)
 

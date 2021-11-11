@@ -6,8 +6,13 @@ import uuid
 class RPCSender(object):
 
     def __init__(self, queue_name):
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+        self.url = os.environ.get('CLOUDAMQP_URL',
+                             "amqps://hgaxqhai:BZL-fO3G7Pkuo-3V2manFRbqI4Z7LnK7@toad.rmq.cloudamqp.com/hgaxqhai")
+        self.params = pika.URLParameters(self.url)
+        self.connection = pika.BlockingConnection(self.params)
         self.channel = self.connection.channel()
+        # self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+        # self.channel = self.connection.channel()
         result = self.channel.queue_declare(queue="", exclusive=True)
         self.callback_queue = result.method.queue
         self.queue_name = queue_name
