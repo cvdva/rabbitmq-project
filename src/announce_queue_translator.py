@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import pika, sys, os
 import time
+import src.translator
 
 
 def main():

@@ -1,39 +1,24 @@
 import pika, sys, os
-import time
 import json
+import src.init_queue
 
 
-def main():
-    url = os.environ.get('CLOUDAMQP_URL',
-                         "amqps://hgaxqhai:BZL-fO3G7Pkuo-3V2manFRbqI4Z7LnK7@toad.rmq.cloudamqp.com/hgaxqhai")
-    params = pika.URLParameters(url)
-    connection = pika.BlockingConnection(params)
-    channel = connection.channel()
-
-    channel.queue_declare(queue='announce', durable=True)
-    print(' [*] Waiting for translator messages. To exit press CTRL+C')
+def check_translate(body):
+    form = body['format']
+    translations = []
+    for line in translation_list:
+        if form == line[0]:
+            translations.append(line[1])
+    return translations
 
 
-    def callback(ch, method, properties, body):
-        print(" [x] Received % r" % body.decode())
-        messagej = json.loads(body)
-        #TODO: insert function to check if the data can be translated
-        time.sleep(body.count(b'.'))
-        print(" [x] Done")
-        ch.basic_ack(delivery_tag=method.delivery_tag)
+def announce_listen(new_format, body):
+    body['format'] = new_format
 
 
-    channel.basic_qos(prefetch_count=1)
-    channel.basic_consume(queue='announce', on_message_callback=callback)
-    channel.start_consuming()
 
-
-if __name__ == '__main__':
-    try:
-        main()
-    except KeyboardInterrupt:
-        print('Interrupted')
-        try:
-            sys.exit(0)
-        except SystemExit:
-            os._exit(0)
+if __name__ == "__main__":
+    translation_list = [('txt', 'csv'), ('txt', 'word'), ('word', 'txt')]
+    body = {}
+    body['format'] = 'txt'
+    print(check_translate(body))
