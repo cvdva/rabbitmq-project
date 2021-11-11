@@ -63,9 +63,9 @@ class Message:
         dids = []
         form = []
         for row in data_list:
-            sids.append(row[0])
-            dids.append(row[1])
-            form.append(row[2])
+            sids.append(row[0].strip())
+            dids.append(row[1].strip())
+            form.append(row[2].strip())
         if dataID == 0:
             self.dataID = int(dids[-1]) + 1
         else:

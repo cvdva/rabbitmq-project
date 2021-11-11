@@ -26,8 +26,8 @@ def main(binding):
         dids = []
         paths = []
         for line in datum:
-            dids.append(line[0])
-            paths.append(line[1])
+            dids.append(line[0].strip())
+            paths.append(line[1].strip())
         i = dids.index(dataID)
         path = paths[i]
         with open(path, 'rb') as f:

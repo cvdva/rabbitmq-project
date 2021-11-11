@@ -12,9 +12,9 @@ class Request:
         dids = []
         form = []
         for row in data_list:
-            sids.append(row[0])
+            sids.append(row[0].strip())
             dids.append(row[1].strip())
-            form.append(row[2])
+            form.append(row[2].strip())
         if dataID in dids:
             self.dataID = dataID
             self.sourceID = sids[dids.index(dataID)]
