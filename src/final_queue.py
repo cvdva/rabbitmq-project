@@ -21,6 +21,7 @@ def main(binding):
 
     def callback(ch, method, properties, body):
         print(' [x] Received {} from {} on final queue'.format(body.decode(), method.routing_key))
+        connection.close()
 
     channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
 
