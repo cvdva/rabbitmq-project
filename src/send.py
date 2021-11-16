@@ -24,14 +24,13 @@ def encode_json(json_name):
     """
     Converts a json at a given location to bytes
     :param json_path: name of the json file
-    :return: json as bytes
+    :return: json as string
     """
 
     name = json_name + ".json"
     with open(name) as f:
         d = json.load(f)
         d = json.dumps(d)
-        print(type(d))
     d = str(d)
     return d
 

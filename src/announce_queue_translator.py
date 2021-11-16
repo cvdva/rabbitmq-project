@@ -1,7 +1,22 @@
 #!/usr/bin/env python
 import pika, sys, os
-import time
+import json
 import src.translator
+
+
+# class NonBlocking():
+#     def __init__(self):
+#         self.url = os.environ.get('CLOUDAMQP_URL',
+#                              "amqps://hgaxqhai:BZL-fO3G7Pkuo-3V2manFRbqI4Z7LnK7@toad.rmq.cloudamqp.com/hgaxqhai")
+#         self.params = pika.URLParameters(self.url)
+#         self.connection = pika.BlockingConnection(self.params)
+#         self.channel = self.connection.channel()
+#         self.channel.queue_declare(queue='announce', durable=True)
+#
+#     def consume(self, callback):
+#         result = self.channel.queue_declare('', exclusive=True)
+#         queue_name = result.method.queue
+#         self.channel.basic_consume(queue=queue_name, on_message)
 
 
 def main():
@@ -16,7 +31,8 @@ def main():
 
     def callback(ch, method, properties, body):
         print(" [x] Received on announce queue % r" % body.decode())
-        time.sleep(body.count(b'.'))
+        message = json.loads(body)
+        src.translator.announce_sub(message)
         print(" [x] Done")
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
