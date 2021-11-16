@@ -1,18 +1,11 @@
 Source ID,Data ID,Format,Institution,Person,App,Date
 100,1000,A,CNU,Cassie,Civ,9/9/21
-100,1001, A, CNU, Cassie, Civ v.3.1, 05/27/2021
-100, 1002, CSV, CNU, Cassie, CIV, 05/27/2021
-100, 1003, CSV, CNU, Cassie, CIV, 05/27/2021
-100, 1004, CSV, CNU, Cassie, CIV, 05/27/2021
-100, 1005, CSV, CNU, Cassie, CIV, 05/27/2021
-100, 1006, CSV, CNU, Cassie, CIV, 05/27/2021
+100, 1001, txt, CNU, Cassie, CIV, 05/27/2021
+99, 1002, csv, CNU, Cassie, CIV, 05/27/2021
+99, 1003, word, CNU, Cassie, CIV, 05/27/2021
+99, 1004, txt, CNU, Cassie, CIV, 05/27/2021
+99, 1005, csv, CNU, Cassie, CIV, 05/27/2021
+99, 1006, word, CNU, Cassie, CIV, 05/27/2021
 100, 1007, txt, CNU, Cassie, CIV, 05/27/2021
-100, 1008, txt, CNU, Cassie, CIV, 05/27/2021
-100, 1009, txt, CNU, Cassie, CIV, 05/27/2021
-100, 1010, txt, CNU, Cassie, CIV, 05/27/2021
-100, 1011, s, CNU, Cassie, CIV, 05/27/2021
-100, 1012, o, CNU, Cassie, CIV, 05/27/2021
-100, 1013, csv, CNU, Cassie, CIV, 05/27/2021
-100, 1014, word, CNU, Cassie, CIV, 05/27/2021
-99, 1015, csv, CNU, Cassie, CIV, 05/27/2021
-99, 1016, word, CNU, Cassie, CIV, 05/27/2021
+99, 1008, csv, CNU, Cassie, CIV, 05/27/2021
+99, 1009, word, CNU, Cassie, CIV, 05/27/2021

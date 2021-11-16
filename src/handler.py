@@ -103,7 +103,7 @@ class Message:
     def create_announcement(self):
         data = {}
         data['name'] = self.name
-        data['souceID'] = self.sourceID
+        data['sourceID'] = self.sourceID
         data['person'] = self.person
         data['app'] = self.app
         data['format'] = self.format
