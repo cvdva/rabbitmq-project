@@ -15,11 +15,6 @@ def write_to_file(file_name, data):
 
 
 def open_file(file_name):
-    '''
-    Opens the csv file under the name given
-    :param file_name: The name of the file to be open
-    :return: Raw list from the csv
-    '''
     list = []
     with open(file_name, newline='') as f:
         reader = csv.reader(f)
@@ -102,10 +97,10 @@ def announce_listen(new_format, body):
 
 if __name__ == "__main__":
     translation_list = [('txt', 'csv'), ('txt', 'word'), ('word', 'txt')]
-    json_path = '/Users/cassie/Documents/School Stuff/CNU/Thesis Monster/PyCharm Projects/RabbitMQ/src/example_json'
-    name = json_path + ".json"
-    with open(name) as f:
-        d = json.load(f)
-        d = json.dumps(d)
-    queue1 = src.send_reply.RPCSender('hello')
-    dataID = queue1.call(d)
+    # json_path = '/Users/cassie/Documents/School Stuff/CNU/Thesis Monster/PyCharm Projects/RabbitMQ/src/example_json'
+    # name = json_path + ".json"
+    # with open(name) as f:
+    #     d = json.load(f)
+    #     d = json.dumps(d)
+    # queue1 = src.send_reply.RPCSender('hello')
+    # dataID = queue1.call(d)
