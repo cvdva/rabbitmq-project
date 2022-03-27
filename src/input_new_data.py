@@ -15,7 +15,7 @@ if __name__ == "__main__":
     sourceID = '100'
     person = "Cassie"
     app = "Civ v.3.1"
-    form = 'A'
+    form = 'txt'
     private = 'False'
     date = '05/27/2021'
     size = '35'
@@ -29,5 +29,6 @@ if __name__ == "__main__":
     data['private'] = private
     data['date'] = date
     data['size'] = size
+    data['dataID'] = 102
     json_data = json.dumps(data)
-    src.send.main(json_data, 'hello')
+    src.send.main(json_data, 'announce')

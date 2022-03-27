@@ -1,5 +1,4 @@
 import csv
-import threading
 import json
 import src.send
 import src.init_queue
@@ -71,12 +70,10 @@ def check_translate(body):
 
 def announce_sub(body):
     translations = check_translate(body)
-    if len(translations) >= 1:
-        for i in range(len(translations)):
-            x = threading.Thread(target=announce_listen(translations[i], body), daemon=True)
-            x.start()
-    else:
-        pass
+    for t in translations:
+        body['format'] = t
+        json_data = json.dumps(body)
+        src.send.main(json_data, 'announce')
 
 
 def announce_listen(new_format, body):
@@ -104,3 +101,24 @@ if __name__ == "__main__":
         d = json.dumps(d)
     queue1 = src.send_reply.RPCSender('hello')
     dataID = queue1.call(d)
+
+    # name = "CNU"
+    # sourceID = '100'
+    # person = "Cassie"
+    # app = "Civ v.3.1"
+    # form = 'txt'
+    # private = 'False'
+    # date = '05/27/2021'
+    # size = '35'
+    #
+    # data = {}
+    # data['name'] = name
+    # data['sourceID'] = sourceID
+    # data['dataID'] = 1000
+    # data['person'] = person
+    # data['app'] = app
+    # data['format'] = form
+    # data['private'] = private
+    # data['date'] = date
+    # data['size'] = size
+    # announce_sub(data)

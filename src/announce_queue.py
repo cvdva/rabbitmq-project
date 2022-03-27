@@ -9,8 +9,12 @@ def main():
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
     channel = connection.channel()
+    channel.exchange_declare(exchange='announce', exchange_type='fanout')
+    result = channel.queue_declare(queue='', exclusive=True)
+    queue_name = result.method.queue
+    channel.queue_bind(exchange='announce', queue=queue_name)
 
-    channel.queue_declare(queue='announce', durable=True)
+    # channel.queue_declare(queue='announce', durable=True)
     print(' [*] Waiting for announce messages. To exit press CTRL+C')
 
     def callback(ch, method, properties, body):
@@ -20,7 +24,7 @@ def main():
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
     channel.basic_qos(prefetch_count=1)
-    channel.basic_consume(queue='announce', on_message_callback=callback)
+    channel.basic_consume(queue=queue_name, on_message_callback=callback)
     channel.start_consuming()
 
 

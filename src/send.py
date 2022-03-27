@@ -11,11 +11,8 @@ def main(message, que):
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
     channel = connection.channel()
-    channel.queue_declare(queue=que,
-                          durable=True)
-    channel.basic_publish(exchange='',
-                          routing_key=que,
-                          body=message)
+    channel.exchange_declare(exchange=que, exchange_type='fanout')
+    channel.basic_publish(exchange=que, routing_key='', body=message)
     print(" [x] Sent message")
     connection.close()
 
