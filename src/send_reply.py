@@ -7,7 +7,7 @@ class RPCSender(object):
 
     def __init__(self, queue_name):
         self.url = os.environ.get('CLOUDAMQP_URL',
-                             "amqps://hgaxqhai:BZL-fO3G7Pkuo-3V2manFRbqI4Z7LnK7@toad.rmq.cloudamqp.com/hgaxqhai")
+                             "amqps://xpzuyovc:wa4RwiAHOv4G4LCFvoYb5vaXwvZ__o2v@beaver.rmq.cloudamqp.com/xpzuyovc")
         self.params = pika.URLParameters(self.url)
         self.connection = pika.BlockingConnection(self.params)
         self.channel = self.connection.channel()

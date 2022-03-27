@@ -97,10 +97,10 @@ def announce_listen(new_format, body):
 
 if __name__ == "__main__":
     translation_list = [('txt', 'csv'), ('txt', 'word'), ('word', 'txt')]
-    # json_path = '/Users/cassie/Documents/School Stuff/CNU/Thesis Monster/PyCharm Projects/RabbitMQ/src/example_json'
-    # name = json_path + ".json"
-    # with open(name) as f:
-    #     d = json.load(f)
-    #     d = json.dumps(d)
-    # queue1 = src.send_reply.RPCSender('hello')
-    # dataID = queue1.call(d)
+    json_path = '/Users/cassie/Documents/School Stuff/CNU/Thesis Monster/PyCharm Projects/RabbitMQ/src/example_json'
+    name = json_path + ".json"
+    with open(name) as f:
+        d = json.load(f)
+        d = json.dumps(d)
+    queue1 = src.send_reply.RPCSender('hello')
+    dataID = queue1.call(d)
