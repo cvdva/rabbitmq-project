@@ -72,6 +72,8 @@ def announce_sub(body):
     translations = check_translate(body)
     for t in translations:
         body['format'] = t
+        body['sourceID'] = 99
+        body['dataID'] += 1
         json_data = json.dumps(body)
         src.send.main(json_data, 'announce')
 
@@ -83,13 +85,11 @@ def announce_listen(new_format, body):
     body['sourceID'] = '99'
     body['private'] = 'False'
     bodyj = json.dumps(body)
-    queue = src.send_reply.RPCSender('hello')
+    queue = src.send_reply.RPCSender('announce')
     new_dataID = queue.call(bodyj)
     new_dataID = new_dataID.decode('utf-8')
     new_dataID = str(new_dataID)
     write_to_file("translator_data.csv", "{}, {}, {}".format(new_dataID, old_dataID, new_format, source))
-
-
 
 
 if __name__ == "__main__":
