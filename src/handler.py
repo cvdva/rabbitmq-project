@@ -111,7 +111,7 @@ class Message:
         data['size'] = self.size
         data['dataID'] = self.dataID
         json_data = json.dumps(data)
-        src.announce.main((json_data))
+        src.announce.main(json_data)
 
 
 class DataRequest:

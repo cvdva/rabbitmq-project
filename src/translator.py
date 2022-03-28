@@ -71,11 +71,9 @@ def check_translate(body):
 def announce_sub(body):
     translations = check_translate(body)
     for t in translations:
-        body['format'] = t
-        body['sourceID'] = 99
-        body['dataID'] += 1
-        json_data = json.dumps(body)
-        src.send.main(json_data, 'announce')
+        announce_listen(t, body)
+        # json_data = json.dumps(body)
+        # src.send.main(json_data, 'announce')
 
 
 def announce_listen(new_format, body):
@@ -84,8 +82,9 @@ def announce_listen(new_format, body):
     body['format'] = new_format
     body['sourceID'] = '99'
     body['private'] = 'False'
+    print(body)
     bodyj = json.dumps(body)
-    queue = src.send_reply.RPCSender('announce')
+    queue = src.send_reply.RPCSender('hello')
     new_dataID = queue.call(bodyj)
     new_dataID = new_dataID.decode('utf-8')
     new_dataID = str(new_dataID)

@@ -1,5 +1,6 @@
 import json
 import src.send
+import src.send_reply
 
 if __name__ == "__main__":
     # name = input("Your institution name: \n")
@@ -29,6 +30,6 @@ if __name__ == "__main__":
     data['private'] = private
     data['date'] = date
     data['size'] = size
-    data['dataID'] = 102
     json_data = json.dumps(data)
-    src.send.main(json_data, 'announce')
+    queue1 = src.send_reply.RPCSender('hello')
+    dataID = queue1.call(json_data)

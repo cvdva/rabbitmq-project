@@ -8,11 +8,8 @@ def main(message):
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
     channel = connection.channel()
-    channel.queue_declare(queue='announce',
-                          durable=True)
-    channel.basic_publish(exchange='',
-                          routing_key='announce',
-                          body=message)
+    channel.exchange_declare(exchange='announce', exchange_type='fanout')
+    channel.basic_publish(exchange='announce', routing_key='', body=message)
     print(" [x] Sent message")
     connection.close()
 
