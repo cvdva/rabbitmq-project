@@ -58,7 +58,7 @@ def open_file(file_name):
 
 if __name__ == '__main__':
     try:
-        main('1')
+        main('2')
     except KeyboardInterrupt:
         print('Interrupted')
         try:
