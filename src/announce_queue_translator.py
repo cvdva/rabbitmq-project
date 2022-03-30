@@ -4,21 +4,6 @@ import json
 import src.translator
 
 
-# class NonBlocking():
-#     def __init__(self):
-#         self.url = os.environ.get('CLOUDAMQP_URL',
-#                              "amqps://xpzuyovc:wa4RwiAHOv4G4LCFvoYb5vaXwvZ__o2v@beaver.rmq.cloudamqp.com/xpzuyovc")
-#         self.params = pika.URLParameters(self.url)
-#         self.connection = pika.BlockingConnection(self.params)
-#         self.channel = self.connection.channel()
-#         self.channel.queue_declare(queue='announce', durable=True)
-#
-#     def consume(self, callback):
-#         result = self.channel.queue_declare('', exclusive=True)
-#         queue_name = result.method.queue
-#         self.channel.basic_consume(queue=queue_name, on_message)
-
-
 def main():
     url = os.environ.get('CLOUDAMQP_URL',
                          "amqps://xpzuyovc:wa4RwiAHOv4G4LCFvoYb5vaXwvZ__o2v@beaver.rmq.cloudamqp.com/xpzuyovc")

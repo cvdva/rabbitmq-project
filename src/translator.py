@@ -1,10 +1,15 @@
 import csv
 import json
 import src.send
+import src.handler
 import src.init_queue
 import src.send_reply
+import src.final_queue
 import src.need_data_queue
+import src.send_need_data
+import src.send_final_data
 import src.announce_queue_translator
+from multiprocessing import Process
 
 
 def write_to_file(file_name, data):
@@ -88,36 +93,41 @@ def announce_listen(new_format, body):
     new_dataID = queue.call(bodyj)
     new_dataID = new_dataID.decode('utf-8')
     new_dataID = str(new_dataID)
-    write_to_file("translator_data.csv", "{}, {}, {}".format(new_dataID, old_dataID, new_format, source))
+    write_to_file("translator_data.csv", "{}, {}, {}, {}".format(new_dataID, old_dataID, new_format, source))
+    # p = Process(target=listen)
+    # p.start()
+    listen()
+
+
+def listen():
+    src.need_data_queue.main('1')
+
+
+def pull_translation(dataID):
+    trans = open_file("translator_data.csv")
+    new_dataIDs = []
+    old_dataIDs = []
+    new_format = []
+    source = []
+    for line in trans:
+        new_dataIDs.append(line[0])
+        old_dataIDs.append(line[1])
+        new_format.append(line[2])
+        source.append(line[3])
+    index = new_dataIDs.index(dataID)
+    original = old_dataIDs[index]
+    source = source[index]
+    ex_format = new_format[index]
+    message = {}
+    message['dataID'] = original
+    data = json.dumps(message)
+    # p = Process(target=src.send_need_data.main, args=(data, source))
+    # p.start()
+    src.send_need_data.main(data, source.strip())
+    src.final_queue.main(original.strip())
+
+
 
 
 if __name__ == "__main__":
-    translation_list = [('txt', 'csv'), ('txt', 'word'), ('word', 'txt')]
-    json_path = '/Users/cassie/Documents/School Stuff/CNU/Thesis Monster/PyCharm Projects/RabbitMQ/src/example_json'
-    name = json_path + ".json"
-    with open(name) as f:
-        d = json.load(f)
-        d = json.dumps(d)
-    queue1 = src.send_reply.RPCSender('hello')
-    dataID = queue1.call(d)
-
-    # name = "CNU"
-    # sourceID = '100'
-    # person = "Cassie"
-    # app = "Civ v.3.1"
-    # form = 'txt'
-    # private = 'False'
-    # date = '05/27/2021'
-    # size = '35'
-    #
-    # data = {}
-    # data['name'] = name
-    # data['sourceID'] = sourceID
-    # data['dataID'] = 1000
-    # data['person'] = person
-    # data['app'] = app
-    # data['format'] = form
-    # data['private'] = private
-    # data['date'] = date
-    # data['size'] = size
-    # announce_sub(data)
+    listen()

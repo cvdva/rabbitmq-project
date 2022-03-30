@@ -9,6 +9,7 @@ def main(message, queue):
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
     channel = connection.channel()
+    queue = queue.strip()
 
     channel.exchange_declare(exchange='final', exchange_type='direct')
 

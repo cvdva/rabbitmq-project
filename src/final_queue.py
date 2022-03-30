@@ -10,6 +10,7 @@ def main(binding):
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
     channel = connection.channel()
+    binding = binding.strip()
 
     channel.exchange_declare(exchange='final', exchange_type='direct')
 

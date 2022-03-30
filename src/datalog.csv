@@ -1,11 +1,6 @@
 Source ID,Data ID,Format,Institution,Person,App,Date
-100,1000,A,CNU,Cassie,Civ,9/9/21
-100, 1001, txt, CNU, Cassie, Civ v.3.1, 05/27/2021
-100, 1002, txt, CNU, Cassie, Civ v.3.1, 05/27/2021
-100, 1003, txt, CNU, Cassie, Civ v.3.1, 05/27/2021
-100, 1004, txt, CNU, Cassie, Civ v.3.1, 05/27/2021
-100, 1005, txt, CNU, Cassie, Civ v.3.1, 05/27/2021
-100, 1006, txt, CNU, Cassie, Civ v.3.1, 05/27/2021
-100, 1007, txt, CNU, Cassie, Civ v.3.1, 05/27/2021
-99, 1008, csv, CNU, Cassie, Civ v.3.1, 05/27/2021
-99, 1009, word, CNU, Cassie, Civ v.3.1, 05/27/2021
+,1000,,,,,
+100, 1001, txt, CNU, Cassie, CIV, 05/27/2021
+99, 1002, csv, CNU, Cassie, CIV, 05/27/2021
+100, 1003, txt, CNU, Cassie, CIV, 05/27/2021
+99, 1004, csv, CNU, Cassie, CIV, 05/27/2021

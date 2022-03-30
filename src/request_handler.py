@@ -4,7 +4,7 @@ import src.announce
 
 
 class Request:
-    def __init__(self, name='', person='', dataID=0, format=None):
+    def __init__(self, name='', person='', dataID='0', format=None):
         self.name = name
         self.person = person
         data_list = self.open_file("datalog.csv")
@@ -81,4 +81,7 @@ def receive(body):
         return obj
 
 
-#if __name__ == "__main__":
+if __name__ == "__main__":
+    obj = Request('CNU', 'Cassie', '1008', 'CSV')
+    print(obj.get_sourceID())
+    print(obj.get_queue())

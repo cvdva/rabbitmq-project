@@ -14,10 +14,11 @@ class Producer:
         ids = []
         queues = []
         for row in full_list:
-            insts.append(row[0].strip())
-            names.append(row[1].strip())
-            ids.append(row[2].strip())
-            queues.append(row[3].strip())
+            if row[2].strip() != '99':
+                insts.append(row[0].strip())
+                names.append(row[1].strip())
+                ids.append(row[2].strip())
+                queues.append(row[3].strip())
         if sourceID == 0:
             if self.inst in insts and self.person in names:
                 name_index = insts.index(institution)
@@ -67,6 +68,7 @@ class Message:
             dids.append(row[1].strip())
             form.append(row[2].strip())
         if dataID == 0:
+            dataID = int(dataID)
             self.dataID = int(dids[-1]) + 1
         else:
             self.dataID = dataID
@@ -175,7 +177,7 @@ def receive_producer(body):
         obj = Producer(institution, name)
     else:
         obj = Producer(institution, name, sourceID)
-    return obj.get_queue()
+    return obj.get_sourceID()
 
 
 def open_file(file_name):

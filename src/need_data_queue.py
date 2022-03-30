@@ -4,6 +4,8 @@ import os
 import json
 import src.send_final_data
 import csv
+import src.translator
+from multiprocessing import Process
 
 
 def main(binding):
@@ -17,29 +19,44 @@ def main(binding):
 
     result = channel.queue_declare(queue='', exclusive=True)
     queue_name = result.method.queue
-
     channel.queue_bind(exchange='need_data', queue=queue_name, routing_key=binding)
+
     print(' [*] Waiting for need data messages')
 
     def callback(ch, method, properties, body):
         body = json.loads(body)
         dataID = body['dataID']
         print(' [x] Received {} from {} on need data queue'.format(dataID, method.routing_key))
-        datum = open_file("datum.csv")
-        dids = []
-        paths = []
-        for line in datum:
-            dids.append(line[0].strip())
-            paths.append(line[1].strip())
-        i = dids.index(dataID)
-        path = paths[i]
-        with open(path, 'rb') as f:
-            contents = f.read()
-        src.send_final_data.main(contents, dataID)
+        if binding == '1':
+            # p = Process(target=translate, args=(dataID, ))
+            # p.start()
+            translate(dataID)
+        else:
+            # p = Process(target=no_translate, args=(dataID, ))
+            # p.start()
+            no_translate(dataID)
 
     channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
 
     channel.start_consuming()
+
+
+def translate(dataID):
+    src.translator.pull_translation(dataID)
+
+
+def no_translate(dataID):
+    datum = open_file("datum.csv")
+    dids = []
+    paths = []
+    for line in datum:
+        dids.append(line[0].strip())
+        paths.append(line[1].strip())
+    i = dids.index(dataID.strip())
+    path = paths[i]
+    with open(path, 'rb') as f:
+        contents = f.read()
+    src.send_final_data.main(contents, str(dataID))
 
 
 def open_file(file_name):
@@ -58,7 +75,7 @@ def open_file(file_name):
 
 if __name__ == '__main__':
     try:
-        main('2')
+        main('100')
     except KeyboardInterrupt:
         print('Interrupted')
         try:

@@ -27,6 +27,7 @@ if __name__ == "__main__":
     queue = src.send_reply.RPCSender('register')
     print('Sent request server. Waiting on reply')
     reply = queue.call(json_data)
+    reply = reply.decode('utf-8')
     print('Reply received. Will listen on {}'.format(reply))
     # path = input('Reply received. Enter path of file\n')
     # json_path = input("Input JSON file path \n")
@@ -37,7 +38,7 @@ if __name__ == "__main__":
     file = src.send.encode_json(json_path)
 
     queue1 = src.send_reply.RPCSender('hello')
-    dataID = queue1.call(file)
+    dataID = queue1.call(file, )
     dataID = dataID.decode('utf-8')
     write_to_file("datum.csv", "{}, {}".format(dataID, path))
     src.need_data_queue.main(reply)
