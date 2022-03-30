@@ -14,6 +14,7 @@ def main(binding):
     params = pika.URLParameters(url)
     connection = pika.BlockingConnection(params)
     channel = connection.channel()
+    binding = binding.strip()
 
     channel.exchange_declare(exchange='need_data', exchange_type='direct')
 
@@ -28,8 +29,8 @@ def main(binding):
         dataID = body['dataID']
         print(' [x] Received {} from {} on need data queue'.format(dataID, method.routing_key))
         if binding == '1':
-            # p = Process(target=translate, args=(dataID, ))
-            # p.start()
+            p = Process(target=translate, args=(dataID, ))
+            p.start()
             translate(dataID)
         else:
             # p = Process(target=no_translate, args=(dataID, ))
@@ -56,7 +57,7 @@ def no_translate(dataID):
     path = paths[i]
     with open(path, 'rb') as f:
         contents = f.read()
-    src.send_final_data.main(contents, str(dataID))
+    src.send_final_data.main(contents, dataID)
 
 
 def open_file(file_name):

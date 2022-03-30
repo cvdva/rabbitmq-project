@@ -121,13 +121,13 @@ def pull_translation(dataID):
     message = {}
     message['dataID'] = original
     data = json.dumps(message)
-    # p = Process(target=src.send_need_data.main, args=(data, source))
-    # p.start()
     src.send_need_data.main(data, source.strip())
+    # p = Process(target=src.final_queue.main, args=(original))
+    # p.start()
     src.final_queue.main(original.strip())
 
 
 
 
 if __name__ == "__main__":
-    listen()
+    src.final_queue.main('1001')
