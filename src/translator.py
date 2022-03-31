@@ -4,7 +4,7 @@ import src.send
 import src.handler
 import src.init_queue
 import src.send_reply
-import src.final_queue
+import src.final_queue_translator
 import src.need_data_queue
 import src.send_need_data
 import src.send_final_data
@@ -117,16 +117,11 @@ def pull_translation(dataID):
     index = new_dataIDs.index(dataID)
     original = old_dataIDs[index]
     source = source[index]
-    ex_format = new_format[index]
     message = {}
     message['dataID'] = original
     data = json.dumps(message)
     src.send_need_data.main(data, source.strip())
-    # p = Process(target=src.final_queue.main, args=(original))
-    # p.start()
-    src.final_queue.main(original.strip())
-
-
+    src.final_queue_translator.main(original.strip())
 
 
 if __name__ == "__main__":

@@ -33,8 +33,6 @@ def main(binding):
             p.start()
             translate(dataID)
         else:
-            # p = Process(target=no_translate, args=(dataID, ))
-            # p.start()
             no_translate(dataID)
 
     channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
@@ -43,7 +41,10 @@ def main(binding):
 
 
 def translate(dataID):
-    src.translator.pull_translation(dataID)
+    message = src.translator.pull_translation(dataID)
+    if message:
+        message = message.encode('utf-8')
+        src.send_final_data.main(message, dataID)
 
 
 def no_translate(dataID):
